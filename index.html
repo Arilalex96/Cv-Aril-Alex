@@ -1,858 +1,1156 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aril Alex — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Aril Alex — IT & K3 Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:     #0e1117;
+  --bg2:    #141820;
+  --bg3:    #1a2030;
+  --amber:  #e8a020;
+  --amber2: #f0bc50;
+  --green:  #22c77a;
+  --text:   #c4cdd8;
+  --dim:    #6b7a8d;
+  --cream:  #eef2f7;
+  --border: rgba(232,160,32,.14);
+  --bord2:  rgba(232,160,32,.28);
+  --card:   rgba(20,24,32,.7);
+  --px:     clamp(1.5rem,5vw,5rem);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;cursor:none}
 
-    :root {
-      --navy:   #0b1120;
-      --navy2:  #111827;
-      --navy3:  #1a2540;
-      --gold:   #c9a84c;
-      --gold2:  #e4c472;
-      --cream:  #f5f0e8;
-      --muted:  #8a96aa;
-      --white:  #ffffff;
-      --border: rgba(201,168,76,0.18);
-      --glass:  rgba(255,255,255,0.03);
-    }
+/* ─ scrollbar ─ */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:2px}
 
-    html { scroll-behavior: smooth; }
+/* ─ cursor ─ */
+#cDot,#cRing{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cDot{width:7px;height:7px;border-radius:50%;background:var(--amber);transition:transform .1s}
+#cRing{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(232,160,32,.5);transition:left .18s cubic-bezier(.2,.8,.2,1),top .18s cubic-bezier(.2,.8,.2,1),width .3s,height .3s}
+body.hov #cDot{transform:translate(-50%,-50%) scale(2.5);background:var(--amber2)}
+body.hov #cRing{width:52px;height:52px;opacity:.35}
+@media(hover:none){#cDot,#cRing{display:none}}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--navy);
-      color: var(--cream);
-      overflow-x: hidden;
-      cursor: none;
-    }
+/* ─ NAV ─ */
+nav{
+  position:fixed;inset:0 0 auto;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem var(--px);
+  transition:background .4s,padding .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.s{
+  background:rgba(14,17,23,.95);
+  backdrop-filter:blur(20px);
+  padding:1rem var(--px);
+  border-color:var(--border);
+}
+.nb{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nb-mark{
+  width:34px;height:34px;border-radius:8px;background:var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;color:#0e1117;
+  flex-shrink:0;
+}
+.nb-name{font-weight:700;font-size:.95rem;color:var(--cream);letter-spacing:.01em}
+.nl{display:flex;gap:2rem;list-style:none}
+.nl a{
+  font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;transition:color .25s;
+}
+.nl a:hover,.nl a.on{color:var(--amber)}
+.nr{display:flex;align-items:center;gap:.9rem}
+.avail{
+  display:flex;align-items:center;gap:.45rem;
+  font-size:.72rem;font-weight:500;letter-spacing:.06em;
+  color:var(--green);border:1px solid rgba(34,199,122,.22);
+  background:rgba(34,199,122,.06);padding:.3rem .85rem;border-radius:100px;
+}
+.avail-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:gp 2s infinite}
+@keyframes gp{0%,100%{box-shadow:0 0 0 0 rgba(34,199,122,.6)}50%{box-shadow:0 0 0 5px rgba(34,199,122,0)}}
+.nc{
+  font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--amber);color:#0e1117;padding:.5rem 1.3rem;border-radius:6px;
+  text-decoration:none;transition:background .25s,box-shadow .25s;
+}
+.nc:hover{background:var(--amber2);box-shadow:0 4px 20px rgba(232,160,32,.4)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{width:22px;height:1.5px;background:var(--cream);display:block;transition:.3s}
+.ham.x span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.ham.x span:nth-child(2){opacity:0}
+.ham.x span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
 
-    /* Custom Cursor */
-    .cursor {
-      position: fixed; pointer-events: none; z-index: 9999;
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--gold); transform: translate(-50%,-50%);
-      transition: transform .1s, width .3s, height .3s, opacity .3s;
-    }
-    .cursor-ring {
-      position: fixed; pointer-events: none; z-index: 9998;
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1.5px solid var(--gold2); transform: translate(-50%,-50%);
-      transition: transform .18s ease-out, width .3s, height .3s, opacity .3s;
-      opacity: .6;
-    }
+/* ─ MOBILE DRAWER ─ */
+.mob{
+  display:none;position:fixed;inset:0;z-index:99;
+  background:rgba(14,17,23,.98);backdrop-filter:blur(24px);
+  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+}
+.mob.open{display:flex}
+.mob a{
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:600;
+  color:var(--cream);text-decoration:none;transition:color .25s;
+}
+.mob a:hover{color:var(--amber)}
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--navy); }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+/* ─ HERO ─ */
+#hero{
+  min-height:100svh;display:grid;place-items:center;
+  padding:9rem var(--px) 5rem;position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 55% at 70% 45%,rgba(232,160,32,.07) 0%,transparent 65%),
+    radial-gradient(ellipse 35% 50% at 10% 75%,rgba(34,199,122,.04) 0%,transparent 60%);
+}
+.hero-lines{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(232,160,32,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,160,32,.035) 1px,transparent 1px);
+  background-size:60px 60px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 20%,transparent 80%);
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 20%,transparent 80%);
+}
+.hero-wrap{position:relative;z-index:2;max-width:820px;width:100%}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.14em;
+  color:var(--amber);border:1px solid var(--border);background:rgba(232,160,32,.05);
+  padding:.38rem .95rem;border-radius:100px;margin-bottom:2rem;
+  animation:fu .6s .15s both;
+}
+.hero-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);animation:bk 1.5s infinite}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:.25}}
+h1.hname{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,9vw,7rem);
+  font-weight:700;line-height:.96;letter-spacing:-.02em;
+  color:var(--cream);margin-bottom:1.6rem;
+  animation:fu .75s .3s both;
+}
+h1.hname i{font-style:italic;color:var(--amber)}
+.htitle{
+  font-size:clamp(.95rem,1.8vw,1.15rem);font-weight:400;
+  color:var(--dim);letter-spacing:.04em;margin-bottom:1.8rem;
+  animation:fu .75s .45s both;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+}
+.htitle strong{color:var(--text);font-weight:600}
+.htitle-sep{width:1px;height:1em;background:var(--border)}
+.hdesc{
+  font-size:1rem;line-height:1.82;color:var(--text);
+  max-width:540px;margin-bottom:2.5rem;font-weight:400;
+  animation:fu .75s .6s both;
+}
+.hdesc strong{color:var(--cream);font-weight:600}
+.hbtns{
+  display:flex;gap:.85rem;flex-wrap:wrap;align-items:center;
+  animation:fu .75s .75s both;margin-bottom:4rem;
+}
+.bprimary{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--amber);color:#0e1117;
+  font-size:.82rem;font-weight:700;letter-spacing:.05em;
+  padding:.85rem 1.9rem;border-radius:7px;text-decoration:none;
+  box-shadow:0 6px 24px rgba(232,160,32,.32);transition:all .25s;
+}
+.bprimary:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,160,32,.45)}
+.bwa{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.28);
+  color:#25D366;font-size:.82rem;font-weight:700;
+  padding:.85rem 1.9rem;border-radius:7px;text-decoration:none;transition:all .25s;
+}
+.bwa:hover{background:rgba(37,211,102,.18);transform:translateY(-2px)}
+.boutline{
+  display:inline-flex;align-items:center;gap:.55rem;
+  border:1px solid rgba(196,205,216,.18);color:var(--text);
+  font-size:.82rem;font-weight:500;padding:.85rem 1.9rem;border-radius:7px;
+  text-decoration:none;transition:all .25s;backdrop-filter:blur(6px);
+}
+.boutline:hover{border-color:var(--amber);color:var(--amber);background:rgba(232,160,32,.04)}
+.hstats{
+  display:flex;gap:0;border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;backdrop-filter:blur(12px);background:rgba(20,24,32,.45);
+  animation:fu .75s .9s both;max-width:560px;
+}
+.hstat{
+  flex:1;padding:1.4rem 1rem;text-align:center;
+  border-right:1px solid var(--border);
+  transition:background .25s;cursor:default;
+}
+.hstat:last-child{border-right:none}
+.hstat:hover{background:rgba(232,160,32,.05)}
+.sv{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1.9rem;color:var(--amber);line-height:1;margin-bottom:.3rem;
+}
+.sl{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 
-    /* Noise Overlay */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: .03;
-    }
+/* ─ SECTIONS ─ */
+section{padding:7rem var(--px);position:relative;z-index:1}
+.s2{background:var(--bg2)}
+.s3{background:var(--bg)}
+.slabel{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber);display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem;
+}
+.slabel::before{content:'';width:26px;height:1px;background:var(--amber)}
+h2.stitle{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:-.02em;
+  color:var(--cream);line-height:1.08;
+}
+h2.stitle span{color:var(--amber)}
+.sdesc{font-size:.95rem;color:var(--text);line-height:1.8;max-width:520px;margin-top:.8rem}
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 4rem;
-      background: rgba(11,17,32,.85);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-      transition: padding .4s;
-    }
-    nav.scrolled { padding: .9rem 4rem; }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 600; letter-spacing: .04em;
-      color: var(--gold2); text-decoration: none;
-    }
-    .nav-logo span { color: var(--cream); }
-    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-    .nav-links a {
-      font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; font-weight: 500;
-      position: relative; transition: color .3s;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -3px; left: 0;
-      width: 0; height: 1px; background: var(--gold);
-      transition: width .3s;
-    }
-    .nav-links a:hover { color: var(--gold2); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--navy); background: var(--gold);
-      padding: .55rem 1.4rem; border-radius: 2px; text-decoration: none;
-      font-weight: 600; transition: background .3s, transform .2s;
-    }
-    .nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { width: 24px; height: 1.5px; background: var(--gold2); transition: all .3s; }
+/* ─ ABOUT ─ */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:start;margin-top:3.5rem;
+}
+.about-ps p{
+  font-size:.96rem;line-height:1.85;color:var(--text);margin-bottom:1rem;
+}
+.about-ps p strong{color:var(--cream);font-weight:600}
+.about-ps p:last-of-type{margin-bottom:0}
+.about-ctas{display:flex;gap:.75rem;margin-top:1.8rem;flex-wrap:wrap}
+.bsm{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.78rem;font-weight:600;letter-spacing:.05em;
+  background:var(--amber);color:#0e1117;
+  padding:.6rem 1.3rem;border-radius:6px;text-decoration:none;transition:all .25s;
+  box-shadow:0 3px 14px rgba(232,160,32,.28);
+}
+.bsm:hover{background:var(--amber2);transform:translateY(-1px)}
+.bsmo{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.78rem;font-weight:500;
+  border:1px solid var(--bord2);color:var(--cream);
+  padding:.6rem 1.3rem;border-radius:6px;text-decoration:none;transition:all .25s;
+}
+.bsmo:hover{border-color:var(--amber);color:var(--amber);background:rgba(232,160,32,.05)}
+.about-cards{display:flex;flex-direction:column;gap:1rem}
+.acard{
+  border:1px solid var(--border);border-radius:10px;
+  padding:1.4rem 1.6rem;background:var(--card);
+  backdrop-filter:blur(8px);transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.acard::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--amber);transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.acard:hover{border-color:var(--bord2);transform:translateX(5px)}
+.acard:hover::before{transform:scaleY(1)}
+.acl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:.4rem;
+}
+.acv{
+  font-family:'Playfair Display',serif;font-weight:600;
+  font-size:1.1rem;color:var(--cream);margin-bottom:.15rem;
+}
+.acs{font-size:.8rem;color:var(--dim)}
+.contact-items{display:flex;flex-direction:column;gap:.7rem;margin-top:.2rem}
+.ci{
+  display:flex;align-items:center;gap:.7rem;
+  font-size:.85rem;color:var(--text);text-decoration:none;transition:color .25s;
+}
+.ci:hover{color:var(--amber)}
+.ci svg{color:var(--amber);flex-shrink:0}
 
-    /* HERO */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      padding: 7rem 4rem 4rem;
-    }
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse 70% 70% at 80% 50%, rgba(201,168,76,.07) 0%, transparent 70%),
-                  radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,168,76,.04) 0%, transparent 60%);
-    }
-    .hero-line {
-      position: absolute; top: 0; left: 4rem; width: 1px; height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
-      opacity: .12;
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 780px; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: .6rem;
-      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--gold); font-family: 'DM Mono', monospace; margin-bottom: 1.8rem;
-      opacity: 0; animation: fadeUp .7s .3s forwards;
-    }
-    .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
-    h1.hero-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      font-weight: 300; line-height: 1.02; letter-spacing: -.01em;
-      color: var(--cream); margin-bottom: .4rem;
-      opacity: 0; animation: fadeUp .8s .45s forwards;
-    }
-    h1.hero-name em { font-style: italic; color: var(--gold2); font-weight: 400; }
-    .hero-title {
-      font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 300;
-      color: var(--muted); letter-spacing: .06em; margin-bottom: 2rem;
-      opacity: 0; animation: fadeUp .8s .6s forwards;
-    }
-    .hero-title strong { color: var(--cream); font-weight: 500; }
-    .hero-desc {
-      font-size: .95rem; line-height: 1.8; color: #9ca5b8;
-      max-width: 520px; margin-bottom: 2.8rem;
-      opacity: 0; animation: fadeUp .8s .75s forwards;
-    }
-    .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp .8s .9s forwards;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--gold); color: var(--navy);
-      font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      padding: .85rem 2rem; border-radius: 2px; text-decoration: none;
-      transition: background .3s, transform .2s, box-shadow .3s;
-      box-shadow: 0 4px 20px rgba(201,168,76,.2);
-    }
-    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,.35); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      border: 1px solid var(--border); color: var(--cream);
-      font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
-      padding: .85rem 2rem; border-radius: 2px; text-decoration: none;
-      transition: border-color .3s, color .3s, background .3s;
-    }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold2); background: rgba(201,168,76,.05); }
-    .hero-stats {
-      position: absolute; right: 4rem; bottom: 4rem;
-      display: flex; gap: 3rem; z-index: 1;
-      opacity: 0; animation: fadeUp .8s 1.1s forwards;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.8rem; font-weight: 600; color: var(--gold2); line-height: 1;
-    }
-    .stat-label { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+/* ─ EDUCATION ─ */
+.tl{position:relative;padding-left:2rem;margin-top:3.5rem}
+.tl::before{
+  content:'';position:absolute;left:0;top:14px;bottom:0;
+  width:1px;background:linear-gradient(to bottom,var(--amber) 0%,transparent 100%);
+  opacity:.4;
+}
+.tl-node{
+  position:absolute;left:-4.5px;top:16px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--amber);box-shadow:0 0 0 3px rgba(232,160,32,.2);
+}
+.ecard{
+  border:1px solid var(--border);border-radius:12px;
+  background:var(--card);backdrop-filter:blur(8px);
+  padding:2.2rem 2.5rem;transition:border-color .3s,box-shadow .3s;
+}
+.ecard:hover{border-color:var(--bord2);box-shadow:0 0 36px rgba(232,160,32,.07)}
+.ecard-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:1.5rem;flex-wrap:wrap;margin-bottom:1.3rem;
+}
+.edeg{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1.25rem;color:var(--cream);margin-bottom:.25rem;
+}
+.esch{font-size:.88rem;color:var(--amber);font-weight:600}
+.ebadge{
+  display:flex;align-items:center;gap:.45rem;
+  font-family:'JetBrains Mono',monospace;font-size:.74rem;
+  background:rgba(232,160,32,.1);color:var(--amber);
+  border:1px solid var(--bord2);padding:.32rem .85rem;border-radius:6px;
+  white-space:nowrap;flex-shrink:0;
+}
+.emeta{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.echip{
+  font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;
+  background:rgba(26,32,48,.8);border:1px solid var(--border);
+  color:var(--text);padding:.22rem .65rem;border-radius:4px;
+}
+.ebody{font-size:.88rem;color:var(--text);line-height:1.78}
+.ebody strong{color:var(--cream)}
 
-    /* SECTION BASE */
-    section { padding: 7rem 4rem; position: relative; z-index: 1; }
-    .section-header { margin-bottom: 4rem; }
-    .section-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: .8rem;
-      display: flex; align-items: center; gap: .6rem;
-    }
-    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
-    h2.section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400;
-      color: var(--cream); line-height: 1.1;
-    }
-    h2.section-title em { font-style: italic; color: var(--gold2); }
-    .divider {
-      width: calc(100% + 8rem); height: 1px; margin: 0 -4rem;
-      background: linear-gradient(to right, var(--gold), transparent);
-      opacity: .2; position: relative; z-index: 1;
-    }
+/* ─ EXPERIENCE ─ */
+.exp-card{
+  border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;transition:border-color .3s,box-shadow .3s;
+}
+.exp-card:hover{border-color:var(--bord2);box-shadow:0 0 36px rgba(232,160,32,.07)}
+.exp-head{
+  display:flex;align-items:center;gap:1.4rem;
+  padding:1.8rem 2.5rem;border-bottom:1px solid var(--border);
+  background:rgba(232,160,32,.02);flex-wrap:wrap;gap:1rem;
+}
+.elogo{
+  width:50px;height:50px;flex-shrink:0;border-radius:10px;
+  background:rgba(232,160,32,.1);border:1px solid var(--bord2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;
+  color:var(--amber);letter-spacing:.04em;
+}
+.etitle{font-weight:700;font-size:.97rem;color:var(--cream);margin-bottom:.18rem}
+.ecomp{font-size:.82rem;color:var(--amber);font-weight:500}
+.eperiod{
+  margin-left:auto;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  background:rgba(34,199,122,.07);border:1px solid rgba(34,199,122,.2);
+  color:var(--green);padding:.28rem .8rem;border-radius:6px;white-space:nowrap;
+}
+.exp-body{padding:1.8rem 2.5rem}
+.exp-body ul{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.exp-body li{
+  display:flex;gap:.9rem;font-size:.88rem;color:var(--text);line-height:1.7;
+}
+.exp-body li::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--amber);flex-shrink:0;margin-top:.52rem;
+}
 
-    /* ABOUT */
-    #about { background: var(--navy2); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .about-text p { font-size: .95rem; line-height: 1.85; color: #9ca5b8; margin-bottom: 1.2rem; }
-    .about-text p strong { color: var(--cream); font-weight: 500; }
-    .contact-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: .9rem; }
-    .contact-item {
-      display: flex; align-items: center; gap: 1rem;
-      font-size: .85rem; color: var(--muted);
-    }
-    .contact-item svg { flex-shrink: 0; color: var(--gold); }
-    .contact-item a { color: var(--cream); text-decoration: none; transition: color .3s; }
-    .contact-item a:hover { color: var(--gold2); }
-    .about-right { display: flex; flex-direction: column; gap: 2rem; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 4px; padding: 2rem;
-      transition: border-color .3s, transform .3s;
-    }
-    .info-card:hover { border-color: rgba(201,168,76,.4); transform: translateY(-3px); }
-    .info-card-label {
-      font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--gold); font-family: 'DM Mono', monospace; margin-bottom: .8rem;
-    }
-    .info-card-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 500; color: var(--cream);
-    }
-    .info-card-sub { font-size: .82rem; color: var(--muted); margin-top: .3rem; }
+/* ─ K3 ─ */
+.k3-banner{
+  margin-top:3rem;margin-bottom:3rem;
+  border:1px solid var(--bord2);border-radius:14px;
+  background:linear-gradient(120deg,rgba(232,160,32,.06) 0%,rgba(20,24,32,.7) 50%,rgba(34,199,122,.03) 100%);
+  backdrop-filter:blur(10px);
+  padding:2.5rem 3rem;
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;
+}
+.k3b-title{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(1.2rem,2.5vw,1.7rem);color:var(--cream);margin-bottom:.6rem;
+}
+.k3b-desc{font-size:.9rem;color:var(--text);line-height:1.75;margin-bottom:1.2rem}
+.k3b-tag{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;
+  color:var(--amber);background:rgba(232,160,32,.08);
+  border:1px solid var(--bord2);padding:.4rem 1rem;border-radius:6px;
+}
+.k3-shield-svg{
+  width:100px;height:110px;flex-shrink:0;
+  filter:drop-shadow(0 0 16px rgba(232,160,32,.35));
+}
+.k3-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:1.1rem;
+}
+.k3c{
+  border:1px solid var(--border);border-radius:10px;
+  padding:1.6rem 1.8rem;background:var(--card);backdrop-filter:blur(6px);
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.k3c::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--amber),var(--amber2));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.k3c:hover{border-color:var(--bord2);transform:translateY(-3px);box-shadow:0 10px 30px rgba(232,160,32,.08)}
+.k3c:hover::after{transform:scaleX(1)}
+.k3c-icon{
+  width:40px;height:40px;border-radius:9px;
+  background:rgba(232,160,32,.1);border:1px solid var(--bord2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--amber);margin-bottom:1rem;
+}
+.k3c-title{
+  font-weight:700;font-size:.92rem;color:var(--cream);margin-bottom:.5rem;
+}
+.k3c-desc{font-size:.82rem;color:var(--text);line-height:1.72}
 
-    /* EDUCATION */
-    .edu-card {
-      display: flex; gap: 2rem; align-items: flex-start;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 4px; padding: 2.5rem;
-      transition: border-color .4s, transform .3s;
-    }
-    .edu-card:hover { border-color: rgba(201,168,76,.4); transform: translateY(-3px); }
-    .edu-icon {
-      width: 54px; height: 54px; flex-shrink: 0;
-      background: rgba(201,168,76,.1); border: 1px solid var(--border);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: var(--gold);
-    }
-    .edu-body { flex: 1; }
-    .edu-degree {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 500; color: var(--cream); margin-bottom: .3rem;
-    }
-    .edu-school { font-size: .9rem; font-weight: 500; color: var(--gold2); margin-bottom: .2rem; }
-    .edu-meta { font-size: .8rem; color: var(--muted); display: flex; gap: 1.5rem; margin-bottom: 1rem; }
-    .edu-gpa {
-      display: inline-block; font-family: 'DM Mono', monospace;
-      font-size: .82rem; color: var(--navy); background: var(--gold);
-      padding: .25rem .75rem; border-radius: 2px; font-weight: 500;
-    }
+/* ─ PROJECTS ─ */
+.proj-list{display:flex;flex-direction:column;gap:1.2rem;margin-top:3.5rem}
+.pcard{
+  display:grid;grid-template-columns:56px 1fr 28px;
+  gap:2rem;align-items:center;
+  border:1px solid var(--border);border-radius:12px;
+  padding:1.8rem 2.2rem;background:var(--card);backdrop-filter:blur(8px);
+  transition:all .3s;
+}
+.pcard:hover{border-color:var(--bord2);box-shadow:0 8px 36px rgba(232,160,32,.09);transform:translateX(4px)}
+.pnum{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:2.5rem;color:rgba(232,160,32,.15);line-height:1;text-align:center;
+}
+.ptype{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--amber);margin-bottom:.35rem;
+}
+.pname{
+  font-family:'Playfair Display',serif;font-weight:600;
+  font-size:1.15rem;color:var(--cream);margin-bottom:.5rem;
+}
+.pdesc{font-size:.85rem;color:var(--text);line-height:1.72;margin-bottom:.9rem}
+.ptags{display:flex;flex-wrap:wrap;gap:.4rem}
+.ptag{
+  font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.04em;
+  color:var(--dim);background:rgba(26,32,48,.9);
+  border:1px solid var(--border);padding:.2rem .55rem;border-radius:4px;
+  transition:color .25s,border-color .25s;
+}
+.pcard:hover .ptag{color:var(--text);border-color:rgba(232,160,32,.2)}
+.parr{color:var(--dim);transition:color .3s,transform .3s}
+.pcard:hover .parr{color:var(--amber);transform:translate(3px,-3px)}
 
-    /* EXPERIENCE */
-    #experience { background: var(--navy2); }
-    .exp-card {
-      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-      transition: border-color .3s, transform .3s;
-    }
-    .exp-card:hover { border-color: rgba(201,168,76,.35); transform: translateY(-3px); }
-    .exp-header {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: 2rem 2.5rem; border-bottom: 1px solid var(--border);
-      background: rgba(201,168,76,.03); flex-wrap: wrap;
-    }
-    .exp-logo {
-      width: 52px; height: 52px; flex-shrink: 0;
-      background: rgba(201,168,76,.1); border: 1px solid var(--border);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-      font-weight: 600; color: var(--gold2); letter-spacing: .02em;
-    }
-    .exp-company { font-size: .9rem; font-weight: 600; color: var(--cream); margin-bottom: .15rem; }
-    .exp-role { font-size: .82rem; color: var(--gold2); }
-    .exp-period {
-      margin-left: auto; font-family: 'DM Mono', monospace;
-      font-size: .72rem; color: var(--muted); letter-spacing: .08em;
-    }
-    .exp-body { padding: 2rem 2.5rem; }
-    .exp-body ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
-    .exp-body li {
-      font-size: .88rem; line-height: 1.65; color: #9ca5b8;
-      display: flex; gap: .8rem; align-items: flex-start;
-    }
-    .exp-body li::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%;
-      background: var(--gold); flex-shrink: 0; margin-top: .45rem;
-    }
+/* ─ CERTS ─ */
+.cert-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:1.2rem;margin-top:3.5rem;
+}
+.ccard{
+  border:1px solid var(--border);border-radius:12px;
+  padding:1.8rem 2rem;background:var(--card);backdrop-filter:blur(8px);
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.ccard::before{
+  content:'';position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;
+  background:linear-gradient(90deg,transparent,var(--amber),transparent);
+  opacity:0;transition:opacity .35s;
+}
+.ccard:hover{border-color:var(--bord2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(232,160,32,.09)}
+.ccard:hover::before{opacity:1}
+.cc-head{display:flex;align-items:flex-start;gap:1.1rem;margin-bottom:1.2rem}
+.cc-icon{
+  width:48px;height:48px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.cc-icon.o{background:rgba(232,160,32,.1);border:1px solid var(--bord2);color:var(--amber)}
+.cc-icon.g{background:rgba(34,199,122,.1);border:1px solid rgba(34,199,122,.25);color:var(--green)}
+.cc-name{
+  font-family:'Playfair Display',serif;font-weight:600;
+  font-size:1rem;color:var(--cream);line-height:1.3;margin-bottom:.2rem;
+}
+.cc-iss{font-size:.8rem;color:var(--text)}
+.cc-iss2{font-size:.75rem;color:var(--dim);margin-top:.1rem}
+.cc-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:1rem;border-top:1px solid var(--border);
+}
+.cc-yr{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  color:var(--amber);background:rgba(232,160,32,.08);
+  border:1px solid var(--border);padding:.22rem .65rem;border-radius:5px;
+}
+.cc-status{
+  display:flex;align-items:center;gap:.38rem;
+  font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);
+}
+.cc-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
 
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .project-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 4px; padding: 2rem; position: relative; overflow: hidden;
-      transition: border-color .35s, transform .3s;
-    }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, var(--gold), transparent);
-      opacity: 0; transition: opacity .35s;
-    }
-    .project-card:hover { border-color: rgba(201,168,76,.4); transform: translateY(-4px); }
-    .project-card:hover::before { opacity: 1; }
-    .project-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem; font-weight: 700; color: rgba(201,168,76,.08); line-height: 1; margin-bottom: .5rem;
-    }
-    .project-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: .3rem;
-    }
-    .project-type {
-      font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold); font-family: 'DM Mono', monospace; margin-bottom: .9rem;
-    }
-    .project-desc { font-size: .85rem; line-height: 1.7; color: var(--muted); }
-    .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
-    .tag {
-      font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--gold2); border: 1px solid rgba(201,168,76,.25);
-      padding: .25rem .6rem; border-radius: 2px; font-family: 'DM Mono', monospace;
-    }
+/* ─ SKILLS ─ */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.2rem;margin-top:3.5rem;
+}
+.skcard{
+  border:1px solid var(--border);border-radius:12px;
+  padding:1.6rem 1.8rem;background:var(--card);backdrop-filter:blur(8px);
+  transition:all .3s;
+}
+.skcard:hover{border-color:var(--bord2);transform:translateY(-3px);box-shadow:0 10px 28px rgba(232,160,32,.08)}
+.skcard-icon{
+  width:40px;height:40px;border-radius:8px;
+  background:rgba(232,160,32,.1);border:1px solid var(--bord2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--amber);margin-bottom:1.1rem;
+}
+.skcard-title{
+  font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:.9rem;
+}
+.sk-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.sktag{
+  font-size:.78rem;font-weight:500;
+  background:rgba(26,32,48,.9);border:1px solid var(--border);
+  color:var(--text);padding:.32rem .75rem;border-radius:5px;
+  transition:all .25s;
+}
+.sktag:hover,.sktag.hi{border-color:var(--bord2);color:var(--amber);background:rgba(232,160,32,.05)}
+.sktag.g{background:rgba(34,199,122,.07);border-color:rgba(34,199,122,.22);color:var(--green)}
 
-    /* CERTIFICATIONS */
-    #certifications { background: var(--navy2); }
-    .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .cert-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 4px; padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start;
-      transition: border-color .3s, transform .3s;
-    }
-    .cert-card:hover { border-color: rgba(201,168,76,.4); transform: translateY(-3px); }
-    .cert-badge {
-      width: 52px; height: 52px; flex-shrink: 0;
-      background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: var(--gold);
-    }
-    .cert-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem; font-weight: 500; color: var(--cream); margin-bottom: .25rem; line-height: 1.3;
-    }
-    .cert-issuer { font-size: .8rem; color: var(--gold2); margin-bottom: .2rem; }
-    .cert-year { font-size: .75rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+/* ─ CONTACT ─ */
+.contact-wrap{
+  max-width:940px;margin:3.5rem auto 0;
+  border:1px solid var(--border);border-radius:16px;
+  background:linear-gradient(135deg,rgba(232,160,32,.04),rgba(20,24,32,.7),rgba(34,199,122,.02));
+  backdrop-filter:blur(12px);padding:3.5rem;
+  position:relative;overflow:hidden;
+}
+.contact-wrap::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.06),transparent 70%);
+  pointer-events:none;
+}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;position:relative;z-index:2}
+.cl h3{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1.7rem;color:var(--cream);margin-bottom:.7rem;
+}
+.cl p{font-size:.9rem;color:var(--text);line-height:1.78;margin-bottom:1.8rem}
+.cl p strong{color:var(--amber)}
+.clinks{display:flex;flex-direction:column;gap:.8rem}
+.clink{
+  display:flex;align-items:center;gap:1rem;
+  padding:.95rem 1.3rem;border:1px solid var(--border);border-radius:9px;
+  background:rgba(20,24,32,.5);text-decoration:none;transition:all .3s;
+}
+.clink:hover{border-color:var(--bord2);transform:translateX(4px);background:rgba(232,160,32,.04)}
+.clink-ic{
+  width:38px;height:38px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.clink-ic.o{background:rgba(232,160,32,.1);color:var(--amber)}
+.clink-ic.g{background:rgba(37,211,102,.1);color:#25D366}
+.clink-ic.b{background:rgba(100,160,255,.08);color:#7ab4ff}
+.clink-lbl{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.12rem}
+.clink-val{font-size:.88rem;font-weight:600;color:var(--cream)}
+.cr{}
+.cform{display:flex;flex-direction:column;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:.45rem}
+.fl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.fi,.fta{
+  background:rgba(20,24,32,.7);border:1px solid var(--border);
+  color:var(--cream);font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.88rem;padding:.8rem 1rem;border-radius:7px;outline:none;resize:none;
+  transition:border-color .25s,box-shadow .25s;
+}
+.fi:focus,.fta:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,160,32,.1)}
+.fi::placeholder,.fta::placeholder{color:var(--dim)}
+.fta{height:110px}
+.fbtn{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  background:var(--amber);color:#0e1117;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.82rem;font-weight:700;letter-spacing:.05em;
+  padding:.95rem;border-radius:7px;border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(232,160,32,.3);transition:all .25s;
+}
+.fbtn:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 7px 22px rgba(232,160,32,.42)}
 
-    /* SKILLS */
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .skill-group {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 4px; padding: 2rem;
-      transition: border-color .3s, transform .3s;
-    }
-    .skill-group:hover { border-color: rgba(201,168,76,.35); transform: translateY(-3px); }
-    .skill-group-icon {
-      width: 44px; height: 44px; background: rgba(201,168,76,.1);
-      border: 1px solid rgba(201,168,76,.25); border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold); margin-bottom: 1.2rem;
-    }
-    .skill-group-title {
-      font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--gold); font-family: 'DM Mono', monospace; margin-bottom: 1rem;
-    }
-    .skill-item {
-      font-size: .88rem; color: #9ca5b8; line-height: 1.7;
-      display: flex; align-items: center; gap: .6rem; margin-bottom: .4rem;
-    }
-    .skill-item::before {
-      content: ''; width: 4px; height: 4px; border-radius: 50%;
-      background: var(--gold); flex-shrink: 0;
-    }
+/* ─ FOOTER ─ */
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:2rem var(--px);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.2rem;
+}
+.fb{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--cream)}
+.fb span{color:var(--amber)}
+.fc{font-size:.75rem;color:var(--dim)}
+.fls{display:flex;gap:1.3rem}
+.fls a{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .25s}
+.fls a:hover{color:var(--amber)}
 
-    /* FOOTER */
-    footer {
-      background: var(--navy); border-top: 1px solid var(--border);
-      padding: 3.5rem 4rem; display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1.5rem;
-    }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 600; color: var(--gold2);
-    }
-    .footer-copy { font-size: .78rem; color: var(--muted); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a {
-      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color .3s;
-    }
-    .footer-links a:hover { color: var(--gold2); }
+/* ─ REVEAL ANIMATION ─ */
+.r{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.r.v{opacity:1;transform:none}
+.rl{opacity:0;transform:translateX(-26px);transition:opacity .7s ease,transform .7s ease}
+.rl.v{opacity:1;transform:none}
+.rr{opacity:0;transform:translateX(26px);transition:opacity .7s ease,transform .7s ease}
+.rr.v{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-    /* SCROLL ANIMATIONS */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: .12s; }
-    .reveal-delay-2 { transition-delay: .24s; }
-    .reveal-delay-3 { transition-delay: .36s; }
-    .reveal-delay-4 { transition-delay: .48s; }
-
-    /* KEYFRAMES */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      nav { padding: 1.2rem 2rem; }
-      nav.scrolled { padding: .8rem 2rem; }
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 5rem 2rem; }
-      .hero { padding: 7rem 2rem 3rem; }
-      .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .cert-grid { grid-template-columns: 1fr; }
-      footer { padding: 2.5rem 2rem; flex-direction: column; align-items: flex-start; }
-      .divider { margin: 0 -2rem; width: calc(100% + 4rem); }
-    }
-    @media (max-width: 600px) {
-      h1.hero-name { font-size: 3rem; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 2rem; }
-      nav { padding: 1rem 1.5rem; }
-      section { padding: 4rem 1.5rem; }
-      .exp-period { margin-left: 0; margin-top: .5rem; }
-      .divider { margin: 0 -1.5rem; width: calc(100% + 3rem); }
-    }
-
-    /* MOBILE MENU */
-    .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 99;
-      background: var(--navy2); flex-direction: column; align-items: center; justify-content: center;
-      gap: 2.5rem;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400;
-      color: var(--cream); text-decoration: none; letter-spacing: .04em; transition: color .3s;
-    }
-    .mobile-menu a:hover { color: var(--gold2); }
-    .mobile-close {
-      position: absolute; top: 1.5rem; right: 2rem;
-      font-size: 1.5rem; color: var(--gold); cursor: pointer; font-family: sans-serif;
-    }
-  </style>
+/* ─ RESPONSIVE ─ */
+@media(max-width:1080px){
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .cg{grid-template-columns:1fr;gap:2.5rem}
+  .k3-banner{grid-template-columns:1fr}
+  .k3-shield-svg{display:none}
+}
+@media(max-width:900px){
+  nav{padding:1rem var(--px)}
+  nav.s{padding:.85rem var(--px)}
+  .nl,.nr{display:none}
+  .ham{display:flex}
+  section{padding:5rem var(--px)}
+  #hero{padding:8rem var(--px) 4rem}
+  .hstats{flex-wrap:wrap}
+  .hstat{flex:1 1 45%;border-bottom:1px solid var(--border)}
+  .hstat:nth-child(2){border-right:none}
+  .hstat:nth-child(3){border-bottom:none}
+  .hstat:last-child{border-right:none;border-bottom:none}
+  .pcard{grid-template-columns:auto 1fr;gap:1.2rem}
+  .parr{display:none}
+  .pnum{font-size:2rem;min-width:44px}
+  footer{padding:1.6rem var(--px)}
+  .contact-wrap{padding:2.2rem 1.8rem}
+}
+@media(max-width:600px){
+  :root{--px:1.2rem}
+  h1.hname{font-size:2.9rem}
+  .hstats{flex-direction:column}
+  .hstat{border-right:none !important;border-bottom:1px solid var(--border) !important}
+  .hstat:last-child{border-bottom:none !important}
+  section{padding:4rem var(--px)}
+  #hero{padding:7rem var(--px) 3rem}
+  .ecard{padding:1.5rem 1.3rem}
+  .ecard-head{flex-direction:column;gap:.7rem}
+  .exp-head{padding:1.4rem 1.5rem}
+  .exp-body{padding:1.4rem 1.5rem}
+  .k3-banner{padding:1.8rem 1.5rem}
+  .ccard{padding:1.4rem 1.3rem}
+  footer{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:400px){
+  h1.hname{font-size:2.4rem}
+  .hbtns{flex-direction:column}
+  .hbtns a{width:100%;justify-content:center}
+  .about-ctas{flex-direction:column}
+  .about-ctas a{width:100%;justify-content:center}
+}
+</style>
 </head>
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+<!-- Cursor -->
+<div id="cDot"></div>
+<div id="cRing"></div>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <span class="mobile-close" id="mobileClose">✕</span>
-    <a href="#about" onclick="closeMobile()">Tentang</a>
-    <a href="#education" onclick="closeMobile()">Pendidikan</a>
-    <a href="#experience" onclick="closeMobile()">Pengalaman</a>
-    <a href="#projects" onclick="closeMobile()">Proyek</a>
-    <a href="#certifications" onclick="closeMobile()">Sertifikasi</a>
-    <a href="#skills" onclick="closeMobile()">Keahlian</a>
+<!-- Mobile Drawer -->
+<div class="mob" id="mobD">
+  <a href="#hero"          onclick="cm()">Home</a>
+  <a href="#about"         onclick="cm()">Tentang</a>
+  <a href="#education"     onclick="cm()">Pendidikan</a>
+  <a href="#experience"    onclick="cm()">Pengalaman</a>
+  <a href="#k3"            onclick="cm()">K3</a>
+  <a href="#projects"      onclick="cm()">Proyek</a>
+  <a href="#certifications" onclick="cm()">Sertifikasi</a>
+  <a href="#skills"        onclick="cm()">Keahlian</a>
+  <a href="#contact"       onclick="cm()">Kontak</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nb">
+    <div class="nb-mark">AA</div>
+    <span class="nb-name">Aril Alex</span>
+  </a>
+  <ul class="nl">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#education">Pendidikan</a></li>
+    <li><a href="#experience">Pengalaman</a></li>
+    <li><a href="#k3">K3</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#skills">Keahlian</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <div class="nr">
+    <div class="avail"><span class="avail-dot"></span>Tersedia</div>
+    <a href="https://wa.me/6285232816898" target="_blank" class="nc">Hubungi</a>
   </div>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
 
-  <!-- NAV -->
-  <nav id="navbar">
-    <a href="#" class="nav-logo">Aril <span>Alex</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">Tentang</a></li>
-      <li><a href="#education">Pendidikan</a></li>
-      <li><a href="#experience">Pengalaman</a></li>
-      <li><a href="#projects">Proyek</a></li>
-      <li><a href="#certifications">Sertifikasi</a></li>
-      <li><a href="#skills">Keahlian</a></li>
-    </ul>
-    <a href="mailto:arilalex09@gmail.com" class="nav-cta">Hubungi Saya</a>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-wrap">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>IT Graduate &amp; Ahli K3 Umum &middot; Makassar 2025</div>
+    <h1 class="hname">Aril<br><i>Alex</i></h1>
+    <div class="htitle">
+      <strong>S.Kom &middot; Teknik Informatika</strong>
+      <span class="htitle-sep"></span>
+      <strong>Ahli K3 Umum (AK3U)</strong>
     </div>
-  </nav>
+    <p class="hdesc">
+      Lulusan <strong>Universitas Sam Ratulangi</strong> IPK 3.77 dengan sertifikasi resmi
+      <strong>Ahli K3 Umum Kemnaker RI</strong>. Menggabungkan kompetensi teknologi informasi
+      dan manajemen keselamatan kerja untuk menciptakan lingkungan kerja yang lebih aman dan efisien.
+    </p>
+    <div class="hbtns">
+      <a href="#experience" class="bprimary">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Lihat Portofolio
+      </a>
+      <a href="https://wa.me/6285232816898" target="_blank" class="bwa">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Chat WhatsApp
+      </a>
+      <a href="mailto:arilalex09@gmail.com" class="boutline">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>Kirim Email
+      </a>
+    </div>
+    <div class="hstats">
+      <div class="hstat">
+        <div class="sv">3.77</div>
+        <div class="sl">IPK / 4.00</div>
+      </div>
+      <div class="hstat">
+        <div class="sv">3</div>
+        <div class="sl">Proyek Web</div>
+      </div>
+      <div class="hstat">
+        <div class="sv">2</div>
+        <div class="sl">Sertifikasi</div>
+      </div>
+      <div class="hstat">
+        <div class="sv">3<span style="font-size:1.2rem">bln</span></div>
+        <div class="sl">Magang</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-line"></div>
-    <div class="hero-content">
-      <div class="hero-tag">IT Graduate &middot; K3 Specialist</div>
-      <h1 class="hero-name">Aril <em>Alex</em></h1>
-      <p class="hero-title">
-        <strong>S.Kom &middot; Ahli K3 Umum</strong> &mdash; Teknik Informatika &amp; Keselamatan Kerja
-      </p>
-      <p class="hero-desc">
-        Lulusan S1 Teknik Informatika dengan IPK 3.77 yang memiliki sertifikasi 
-        Ahli K3 Umum dari Kementerian Ketenagakerjaan RI. Menggabungkan keahlian 
-        teknologi informasi dengan pemahaman mendalam tentang sistem manajemen K3 
-        dan pengembangan web modern.
-      </p>
-      <div class="hero-actions">
-        <a href="#experience" class="btn-primary">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          Lihat Pengalaman
+<!-- ════ ABOUT ════ -->
+<section id="about" class="s2">
+  <div class="slabel r">Profil</div>
+  <h2 class="stitle r d1">Tentang <span>Saya</span></h2>
+  <div class="about-grid">
+    <div class="about-ps rl">
+      <p>Saya adalah lulusan <strong>S1 Teknik Informatika</strong> Universitas Sam Ratulangi Manado dengan IPK <strong>3.77/4.00</strong> — mencerminkan dedikasi akademik yang konsisten selama empat tahun studi.</p>
+      <p>Saya memiliki dua kompetensi inti yang saling melengkapi: <strong>Keselamatan & Kesehatan Kerja (K3)</strong> melalui sertifikasi AK3U resmi Kemnaker RI, serta <strong>pengembangan teknologi informasi</strong> berbasis web.</p>
+      <p>Pengalaman magang di <strong>PT. Indosat Ooredoo Hutchison</strong> dalam proyek Smart City melatih kemampuan analisis sistem, identifikasi risiko digital, dan kolaborasi lintas tim dalam lingkungan korporat profesional.</p>
+      <p>Saya adalah individu yang <strong>teliti, analitis, dan cepat belajar</strong> — siap memberi kontribusi nyata di bidang HSE/K3 maupun teknologi informasi.</p>
+      <div class="about-ctas">
+        <a href="https://wa.me/6285232816898" target="_blank" class="bsm">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Hubungi via WA
         </a>
-        <a href="mailto:arilalex09@gmail.com" class="btn-secondary">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-          Kirim Email
+        <a href="mailto:arilalex09@gmail.com" class="bsmo">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>Kirim Email
         </a>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num" data-target="3.77" data-decimal="true">3.77</div>
-        <div class="stat-label">IPK / 4.00</div>
+    <div class="about-cards rr">
+      <div class="acard">
+        <div class="acl">Lokasi</div>
+        <div class="acv">Makassar, Sulawesi Selatan</div>
+        <div class="acs">91855 &middot; Indonesia</div>
       </div>
-      <div class="stat">
-        <div class="stat-num" data-target="3">3</div>
-        <div class="stat-label">Proyek</div>
+      <div class="acard">
+        <div class="acl">Pendidikan</div>
+        <div class="acv">Universitas Sam Ratulangi</div>
+        <div class="acs">S1 Teknik Informatika &middot; IPK 3.77 &middot; 2021–2025</div>
       </div>
-      <div class="stat">
-        <div class="stat-num" data-target="2">2</div>
-        <div class="stat-label">Sertifikasi</div>
+      <div class="acard">
+        <div class="acl">Sertifikasi Utama</div>
+        <div class="acv">Ahli K3 Umum (AK3U)</div>
+        <div class="acs">Kementerian Ketenagakerjaan RI &middot; 2026</div>
       </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-header reveal">
-      <div class="section-tag">Profil</div>
-      <h2 class="section-title">Tentang <em>Saya</em></h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="reveal">
-          Saya adalah lulusan <strong>S1 Teknik Informatika</strong> dari Universitas Sam Ratulangi 
-          dengan IPK 3.77 yang memiliki ketertarikan kuat pada dua bidang: <strong>Keselamatan &amp; 
-          Kesehatan Kerja (K3)</strong> dan pengembangan teknologi informasi modern.
-        </p>
-        <p class="reveal reveal-delay-1">
-          Dengan memiliki sertifikasi <strong>Ahli K3 Umum (AK3U)</strong> dari Kementerian 
-          Ketenagakerjaan RI, saya memahami implementasi sistem manajemen K3, identifikasi bahaya, 
-          dan pengendalian risiko di lingkungan kerja secara komprehensif.
-        </p>
-        <p class="reveal reveal-delay-2">
-          Di sisi teknis, saya menguasai pengembangan frontend web menggunakan <strong>HTML, CSS, 
-          JavaScript, Bootstrap</strong>, dan framework <strong>Laravel</strong>, serta memiliki 
-          pengalaman nyata dalam proyek magang di PT. Indosat Ooredoo Hutchison.
-        </p>
-        <div class="contact-list">
-          <div class="contact-item reveal reveal-delay-1">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>Makassar, Sulawesi Selatan 91855</span>
-          </div>
-          <div class="contact-item reveal reveal-delay-2">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-            <a href="mailto:arilalex09@gmail.com">arilalex09@gmail.com</a>
-          </div>
-          <div class="contact-item reveal reveal-delay-3">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73A16 16 0 0 0 15.27 16l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:+6285232816898">+62 852 3281 6898</a>
-          </div>
-        </div>
-      </div>
-      <div class="about-right">
-        <div class="info-card reveal">
-          <div class="info-card-label">Universitas</div>
-          <div class="info-card-value">Universitas Sam Ratulangi</div>
-          <div class="info-card-sub">S1 Teknik Informatika &middot; 2021&ndash;2025</div>
-        </div>
-        <div class="info-card reveal reveal-delay-1">
-          <div class="info-card-label">Prestasi Akademik</div>
-          <div class="info-card-value">IPK 3.77 / 4.00</div>
-          <div class="info-card-sub">Cumlaude Track</div>
-        </div>
-        <div class="info-card reveal reveal-delay-2">
-          <div class="info-card-label">Sertifikasi Unggulan</div>
-          <div class="info-card-value">Ahli K3 Umum (AK3U)</div>
-          <div class="info-card-sub">Kementerian Ketenagakerjaan RI &middot; 2026</div>
+      <div class="acard">
+        <div class="acl">Kontak Langsung</div>
+        <div class="contact-items">
+          <a href="mailto:arilalex09@gmail.com" class="ci">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            arilalex09@gmail.com
+          </a>
+          <a href="https://wa.me/6285232816898" target="_blank" class="ci">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            +62 852 3281 6898
+          </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="divider"></div>
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <div class="section-header reveal">
-      <div class="section-tag">Latar Belakang</div>
-      <h2 class="section-title">Riwayat <em>Pendidikan</em></h2>
-    </div>
-    <div class="edu-card reveal">
-      <div class="edu-icon">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-      </div>
-      <div class="edu-body">
-        <div class="edu-degree">S1 Teknik Informatika</div>
-        <div class="edu-school">Universitas Sam Ratulangi &mdash; Manado</div>
-        <div class="edu-meta">
-          <span>2021 &ndash; 2025</span>
-          <span>&middot;</span>
-          <span>Strata Satu (S1)</span>
-        </div>
-        <span class="edu-gpa">IPK 3.77 / 4.00</span>
-        <p style="margin-top:1.2rem; font-size:.88rem; color:var(--muted); line-height:1.75;">
-          Menempuh pendidikan sarjana dengan fokus pada sistem informasi, pemrograman web, 
-          desain database, dan pengembangan perangkat lunak. Menyelesaikan skripsi 
-          <em style="color:var(--cream)">WikiToraja</em> &mdash; sistem informasi berbasis web 
-          untuk pelestarian budaya Toraja menggunakan framework Laravel.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="section-header reveal">
-      <div class="section-tag">Karier</div>
-      <h2 class="section-title">Pengalaman <em>Magang</em></h2>
-    </div>
-    <div class="exp-card reveal">
-      <div class="exp-header">
-        <div class="exp-logo">IOH</div>
+<!-- ════ EDUCATION ════ -->
+<section id="education" class="s3">
+  <div class="slabel r">Latar Belakang</div>
+  <h2 class="stitle r d1">Riwayat <span>Pendidikan</span></h2>
+  <div class="tl r d2">
+    <div class="tl-node"></div>
+    <div class="ecard">
+      <div class="ecard-head">
         <div>
-          <div class="exp-company">PT. Indosat Ooredoo Hutchison</div>
-          <div class="exp-role">Intern &mdash; Smart City Division (e-Musrenbang Project)</div>
+          <div class="edeg">S1 Teknik Informatika</div>
+          <div class="esch">Universitas Sam Ratulangi — Manado</div>
         </div>
-        <div class="exp-period">Nov 2023 &mdash; Jan 2024</div>
+        <div class="ebadge">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          IPK 3.77 / 4.00
+        </div>
+      </div>
+      <div class="emeta">
+        <span class="echip">2021 – 2025</span>
+        <span class="echip">Strata Satu (S1)</span>
+        <span class="echip">Teknik Informatika</span>
+        <span class="echip">Cumlaude Track</span>
+      </div>
+      <div class="ebody">
+        Studi dengan fokus pada <strong>rekayasa perangkat lunak, sistem informasi, basis data, dan pengembangan web</strong>. Tugas Akhir: <em style="color:var(--amber)">WikiToraja</em> — sistem informasi budaya berbasis Laravel yang mengintegrasikan manajemen konten, kontribusi komunitas, dan UI responsif untuk pelestarian budaya Toraja.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ EXPERIENCE ════ -->
+<section id="experience" class="s2">
+  <div class="slabel r">Karier</div>
+  <h2 class="stitle r d1">Pengalaman <span>Magang</span></h2>
+  <div style="margin-top:3.5rem" class="r d2">
+    <div class="exp-card">
+      <div class="exp-head">
+        <div class="elogo">IOH</div>
+        <div>
+          <div class="etitle">PT. Indosat Ooredoo Hutchison</div>
+          <div class="ecomp">Intern — Smart City Division &middot; e-Musrenbang Project</div>
+        </div>
+        <div class="eperiod">Nov 2023 — Jan 2024</div>
       </div>
       <div class="exp-body">
         <ul>
-          <li>Mengkaji jurnal ilmiah sebagai dasar pengembangan konsep Smart City berbasis e-Musrenbang untuk perencanaan digital kota.</li>
-          <li>Mendesain alur sistem digital untuk perencanaan dan pengelolaan aspirasi masyarakat secara transparan dan efisien.</li>
-          <li>Mengidentifikasi potensi risiko operasional pada proses sistem berbasis digital untuk meningkatkan keandalan sistem.</li>
-          <li>Berkontribusi dalam perancangan sistem yang mendukung keamanan dan keandalan operasional platform Smart City.</li>
-          <li>Menyusun laporan komprehensif dan mempresentasikan hasil analisis kepada mentor dan tim internal.</li>
+          <li>Mengkaji jurnal ilmiah sebagai dasar pengembangan konsep Smart City berbasis e-Musrenbang untuk perencanaan pembangunan digital kota yang partisipatif dan transparan.</li>
+          <li>Mendesain alur sistem digital untuk perencanaan dan pengelolaan aspirasi masyarakat secara real-time, terstruktur, dan terintegrasi dengan platform pemerintahan.</li>
+          <li>Mengidentifikasi potensi risiko operasional pada proses sistem berbasis digital, meliputi risiko keamanan data, keandalan sistem, dan mitigasi gangguan layanan.</li>
+          <li>Berkontribusi dalam perancangan arsitektur sistem yang mendukung keamanan data, skalabilitas, dan keandalan operasional platform Smart City jangka panjang.</li>
+          <li>Menyusun laporan analisis komprehensif dan mempresentasikan temuan serta rekomendasi strategis kepada mentor dan tim divisi internal.</li>
         </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<!-- ════ K3 ════ -->
+<section id="k3" class="s3">
+  <div class="slabel r">Spesialisasi</div>
+  <h2 class="stitle r d1">Kompetensi <span>K3 / HSE</span></h2>
+  <p class="sdesc r d2">Bersertifikasi resmi Ahli K3 Umum (AK3U) dari Kementerian Ketenagakerjaan RI — kompetensi tertinggi K3 umum di Indonesia untuk pengawasan dan implementasi sistem keselamatan kerja.</p>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-header reveal">
-      <div class="section-tag">Portofolio</div>
-      <h2 class="section-title">Proyek <em>Unggulan</em></h2>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="project-num">01</div>
-        <div class="project-name">WikiToraja</div>
-        <div class="project-type">Web Information System &middot; Skripsi</div>
-        <p class="project-desc">
-          Sistem informasi berbasis web untuk pengelolaan dan pelestarian informasi budaya Toraja. 
-          Dikembangkan dengan Laravel, dilengkapi fitur CRUD, kontribusi pengguna, manajemen konten, 
-          dan UI responsif yang efisien.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Laravel</span>
-          <span class="tag">PHP</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">Bootstrap</span>
-        </div>
-      </div>
-      <div class="project-card reveal reveal-delay-1">
-        <div class="project-num">02</div>
-        <div class="project-name">HobbyMate</div>
-        <div class="project-type">Community Platform &middot; Tim</div>
-        <p class="project-desc">
-          Platform berbasis web untuk komunitas hobi yang menghubungkan para penggiat dengan minat 
-          serupa. Berfokus pada alur proses yang intuitif, analisis sistem, implementasi fitur, 
-          dan dokumentasi teknis proyek.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Web App</span>
-          <span class="tag">System Analysis</span>
-          <span class="tag">Team Project</span>
-        </div>
-      </div>
-      <div class="project-card reveal reveal-delay-2">
-        <div class="project-num">03</div>
-        <div class="project-name">EasyClean</div>
-        <div class="project-type">Laundry Service Website &middot; Tim</div>
-        <p class="project-desc">
-          Sistem pemesanan laundry berbasis web dengan alur pemesanan yang streamlined dan 
-          pengelolaan data pelanggan terstruktur. Mencakup analisis kebutuhan, implementasi fitur, 
-          dan dokumentasi sistem lengkap.
-        </p>
-        <div class="project-tags">
-          <span class="tag">HTML/CSS</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">UX Design</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CERTIFICATIONS -->
-  <section id="certifications">
-    <div class="section-header reveal">
-      <div class="section-tag">Kompetensi Resmi</div>
-      <h2 class="section-title">Sertifikasi &amp; <em>Pelatihan</em></h2>
-    </div>
-    <div class="cert-grid">
-      <div class="cert-card reveal">
-        <div class="cert-badge">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div>
-          <div class="cert-name">Ahli K3 Umum (AK3U)</div>
-          <div class="cert-issuer">Kementerian Ketenagakerjaan RI &middot; PT Kasiromua Jaya Wijaya</div>
-          <div class="cert-year">2026</div>
-        </div>
-      </div>
-      <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-badge">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <div>
-          <div class="cert-name">Database Design &amp; Programming with SQL</div>
-          <div class="cert-issuer">Oracle Foundation Associate (1Z0-006) &middot; Kominfo</div>
-          <div class="cert-year">2022</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="section-header reveal">
-      <div class="section-tag">Kompetensi</div>
-      <h2 class="section-title">Keahlian &amp; <em>Kemampuan</em></h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-group reveal">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="skill-group-title">HSE / K3</div>
-        <div class="skill-item">Pemahaman dasar K3 &amp; SMK3</div>
-        <div class="skill-item">Identifikasi bahaya &amp; penilaian risiko</div>
-        <div class="skill-item">Pengendalian risiko lingkungan kerja</div>
-        <div class="skill-item">Pelaporan &amp; dokumentasi K3</div>
-        <div class="skill-item">Implementasi sistem manajemen K3</div>
-      </div>
-      <div class="skill-group reveal reveal-delay-1">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div class="skill-group-title">Teknologi &amp; Pemrograman</div>
-        <div class="skill-item">HTML, CSS, JavaScript</div>
-        <div class="skill-item">Bootstrap Framework</div>
-        <div class="skill-item">Laravel (PHP Framework)</div>
-        <div class="skill-item">Database Design (MySQL, SQL)</div>
-        <div class="skill-item">Frontend Development</div>
-      </div>
-      <div class="skill-group reveal reveal-delay-2">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <div class="skill-group-title">Produktivitas</div>
-        <div class="skill-item">Microsoft Word</div>
-        <div class="skill-item">Microsoft Excel</div>
-        <div class="skill-item">Microsoft PowerPoint</div>
-        <div class="skill-item">Dokumentasi Teknis</div>
-        <div class="skill-item">Presentasi &amp; Pelaporan</div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="skill-group-title">Interpersonal</div>
-        <div class="skill-item">Kerja tim &amp; kolaborasi</div>
-        <div class="skill-item">Komunikasi efektif</div>
-        <div class="skill-item">Analitis &amp; problem solving</div>
-        <div class="skill-item">Manajemen waktu</div>
-      </div>
-      <div class="skill-group reveal reveal-delay-1">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
-        <div class="skill-group-title">Soft Skills</div>
-        <div class="skill-item">Teliti &amp; berorientasi detail</div>
-        <div class="skill-item">Adaptif &amp; cepat belajar</div>
-        <div class="skill-item">Inisiatif &amp; proaktif</div>
-        <div class="skill-item">Disiplin &amp; bertanggung jawab</div>
-      </div>
-      <div class="skill-group reveal reveal-delay-2">
-        <div class="skill-group-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <div class="skill-group-title">Bidang Minat</div>
-        <div class="skill-item">K3 &amp; Manajemen Risiko</div>
-        <div class="skill-item">Sistem Informasi</div>
-        <div class="skill-item">Smart City &amp; e-Government</div>
-        <div class="skill-item">Web Development</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
+  <div class="k3-banner r">
     <div>
-      <div class="footer-logo">Aril Alex</div>
-      <div class="footer-copy" style="margin-top:.4rem;">S1 Teknik Informatika &middot; AK3U &middot; Makassar, 2025</div>
+      <div class="k3b-title">Ahli K3 Umum (AK3U) Tersertifikasi Nasional</div>
+      <p class="k3b-desc">Sertifikasi resmi dari Kementerian Ketenagakerjaan RI yang membuktikan kompetensi dalam penerapan standar K3 sesuai regulasi pemerintah Indonesia. Memungkinkan peran sebagai pengawas K3, auditor internal SMK3, dan konsultan keselamatan kerja di berbagai sektor industri manufaktur, konstruksi, migas, dan jasa.</p>
+      <div class="k3b-tag">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        Kemnaker RI &middot; PT Kasiromua Jaya Wijaya &middot; 2026
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="mailto:arilalex09@gmail.com">Email</a>
-      <a href="tel:+6285232816898">Telepon</a>
+    <svg class="k3-shield-svg" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 8L12 28v44c0 28 22 52 48 60 26-8 48-32 48-60V28L60 8z" fill="rgba(232,160,32,0.1)" stroke="#e8a020" stroke-width="1.8"/>
+      <path d="M60 22L24 38v32c0 22 17 40 36 47 19-7 36-25 36-47V38L60 22z" fill="rgba(232,160,32,0.07)"/>
+      <path d="M44 70l11 11 21-23" stroke="#e8a020" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="60" cy="60" r="26" stroke="rgba(232,160,32,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="60" y="112" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700" font-size="7.5" fill="#e8a020" letter-spacing="2">AK3U</text>
+    </svg>
+  </div>
+
+  <div class="k3-grid">
+    <div class="k3c r">
+      <div class="k3c-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="k3c-title">Identifikasi Bahaya (HIRA)</div>
+      <p class="k3c-desc">Melaksanakan Hazard Identification & Risk Assessment secara sistematis untuk mengidentifikasi sumber bahaya fisik, kimia, biologi, dan ergonomi di lingkungan kerja.</p>
     </div>
-    <div class="footer-copy">&copy; 2025 Aril Alex. All rights reserved.</div>
-  </footer>
+    <div class="k3c r d1">
+      <div class="k3c-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="k3c-title">Sistem Manajemen K3 (SMK3)</div>
+      <p class="k3c-desc">Mengimplementasikan SMK3 sesuai PP No. 50 Tahun 2012 dan ISO 45001 mencakup perencanaan, pelaksanaan, pemantauan, dan tinjauan manajemen keselamatan kerja.</p>
+    </div>
+    <div class="k3c r d2">
+      <div class="k3c-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div class="k3c-title">Pengendalian Risiko</div>
+      <p class="k3c-desc">Menerapkan hierarchy of controls — dari eliminasi, substitusi, rekayasa teknik, pengendalian administratif, hingga APD — untuk meminimalkan paparan bahaya secara efektif.</p>
+    </div>
+    <div class="k3c r">
+      <div class="k3c-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="k3c-title">Dokumentasi & Pelaporan K3</div>
+      <p class="k3c-desc">Menyusun dokumen K3: JSA, SOP keselamatan, laporan insiden, rekaman audit — sesuai standar regulasi ketenagakerjaan RI dan sistem manajemen terpadu.</p>
+    </div>
+    <div class="k3c r d1">
+      <div class="k3c-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="k3c-title">Edukasi & Budaya K3</div>
+      <p class="k3c-desc">Komunikasi K3 efektif: safety induction, toolbox meeting, dan peningkatan kesadaran pekerja untuk membangun budaya keselamatan yang proaktif dan berkelanjutan.</p>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Custom Cursor
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursor-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    (function animate() {
-      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-      rx += (mx - rx) * .12; ry += (my - ry) * .12;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(animate);
-    })();
+<!-- ════ PROJECTS ════ -->
+<section id="projects" class="s2">
+  <div class="slabel r">Portofolio</div>
+  <h2 class="stitle r d1">Proyek <span>Pilihan</span></h2>
+  <p class="sdesc r d2">Proyek yang dikembangkan selama masa studi, mencerminkan kemampuan analisis sistem, desain, dan pengembangan web end-to-end.</p>
+  <div class="proj-list">
+    <div class="pcard r">
+      <div class="pnum">01</div>
+      <div>
+        <div class="ptype">Web Information System &middot; Skripsi / Tugas Akhir</div>
+        <div class="pname">WikiToraja — Sistem Informasi Budaya</div>
+        <p class="pdesc">Platform web berbasis Laravel untuk pengelolaan dan pelestarian warisan budaya Toraja. Fitur: CRUD konten budaya, kontribusi komunitas, manajemen media, autentikasi multi-level, dan dashboard admin. Dirancang dengan prinsip aksesibilitas, keamanan, dan performa tinggi.</p>
+        <div class="ptags">
+          <span class="ptag">Laravel</span><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">Bootstrap 5</span><span class="ptag">MVC Pattern</span><span class="ptag">Blade Template</span>
+        </div>
+      </div>
+      <div class="parr"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="pcard r d1">
+      <div class="pnum">02</div>
+      <div>
+        <div class="ptype">Community Platform &middot; Tim Kolaboratif</div>
+        <div class="pname">HobbyMate — Platform Komunitas Hobi</div>
+        <p class="pdesc">Aplikasi web komunitas yang menghubungkan individu berdasarkan kesamaan hobi. Mencakup analisis kebutuhan sistem, user journey, implementasi fitur matching pengguna, dan dokumentasi teknis end-to-end dalam tim multidisiplin.</p>
+        <div class="ptags">
+          <span class="ptag">HTML/CSS/JS</span><span class="ptag">System Analysis</span><span class="ptag">UX Design</span><span class="ptag">Team Project</span>
+        </div>
+      </div>
+      <div class="parr"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="pcard r d2">
+      <div class="pnum">03</div>
+      <div>
+        <div class="ptype">Service Management Website &middot; Tim Kolaboratif</div>
+        <div class="pname">EasyClean — Sistem Pemesanan Laundry</div>
+        <p class="pdesc">Sistem manajemen pemesanan laundry berbasis web dengan alur pemesanan intuitif, pengelolaan data pelanggan terstruktur, manajemen order, dan notifikasi status. Mencakup implementasi fitur penuh, pengujian sistem, dan dokumentasi teknis lengkap.</p>
+        <div class="ptags">
+          <span class="ptag">HTML/CSS/JS</span><span class="ptag">Bootstrap</span><span class="ptag">PHP</span><span class="ptag">Responsive Design</span><span class="ptag">Testing</span>
+        </div>
+      </div>
+      <div class="parr"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+  </div>
+</section>
 
-    // Nav scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
+<!-- ════ CERTIFICATIONS ════ -->
+<section id="certifications" class="s3">
+  <div class="slabel r">Kompetensi Resmi</div>
+  <h2 class="stitle r d1">Sertifikasi &amp; <span>Pelatihan</span></h2>
+  <div class="cert-grid">
+    <div class="ccard r">
+      <div class="cc-head">
+        <div class="cc-icon o">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <div class="cc-name">Ahli K3 Umum (AK3U)</div>
+          <div class="cc-iss">Kementerian Ketenagakerjaan RI</div>
+          <div class="cc-iss2">PT Kasiromua Jaya Wijaya</div>
+        </div>
+      </div>
+      <div class="cc-foot">
+        <span class="cc-yr">2026</span>
+        <div class="cc-status"><span class="cc-dot"></span>Aktif &amp; Tersertifikasi</div>
+      </div>
+    </div>
+    <div class="ccard r d1">
+      <div class="cc-head">
+        <div class="cc-icon g">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div>
+          <div class="cc-name">Database Design &amp; Programming with SQL</div>
+          <div class="cc-iss">Oracle Foundation Associate (1Z0-006)</div>
+          <div class="cc-iss2">Kementerian Kominfo RI</div>
+        </div>
+      </div>
+      <div class="cc-foot">
+        <span class="cc-yr">2022</span>
+        <div class="cc-status"><span class="cc-dot"></span>Oracle Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Mobile menu
-    document.getElementById('hamburger').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.add('open');
-    });
-    document.getElementById('mobileClose').addEventListener('click', closeMobile);
-    function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+<!-- ════ SKILLS ════ -->
+<section id="skills" class="s2">
+  <div class="slabel r">Kemampuan</div>
+  <h2 class="stitle r d1">Keahlian &amp; <span>Kompetensi</span></h2>
+  <div class="skills-grid">
+    <div class="skcard r">
+      <div class="skcard-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="skcard-title">HSE / K3</div>
+      <div class="sk-chips">
+        <span class="sktag hi">Identifikasi Bahaya</span>
+        <span class="sktag hi">Risk Assessment</span>
+        <span class="sktag hi">SMK3</span>
+        <span class="sktag hi">Dokumentasi K3</span>
+        <span class="sktag hi">JSA</span>
+        <span class="sktag hi">ISO 45001</span>
+        <span class="sktag hi">Safety Induction</span>
+      </div>
+    </div>
+    <div class="skcard r d1">
+      <div class="skcard-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="skcard-title">Pengembangan Web</div>
+      <div class="sk-chips">
+        <span class="sktag g">Laravel</span>
+        <span class="sktag g">PHP</span>
+        <span class="sktag">HTML5</span>
+        <span class="sktag">CSS3</span>
+        <span class="sktag">JavaScript</span>
+        <span class="sktag">Bootstrap</span>
+        <span class="sktag g">MySQL</span>
+        <span class="sktag">SQL</span>
+      </div>
+    </div>
+    <div class="skcard r d2">
+      <div class="skcard-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="skcard-title">Produktivitas</div>
+      <div class="sk-chips">
+        <span class="sktag">MS Word</span>
+        <span class="sktag">MS Excel</span>
+        <span class="sktag">MS PowerPoint</span>
+        <span class="sktag">Dokumentasi</span>
+        <span class="sktag">Presentasi</span>
+      </div>
+    </div>
+    <div class="skcard r d1">
+      <div class="skcard-icon"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+      <div class="skcard-title">Soft Skills</div>
+      <div class="sk-chips">
+        <span class="sktag">Analitis</span>
+        <span class="sktag">Problem Solving</span>
+        <span class="sktag">Kerja Tim</span>
+        <span class="sktag">Komunikasi</span>
+        <span class="sktag">Manajemen Waktu</span>
+        <span class="sktag">Teliti</span>
+        <span class="sktag">Adaptif</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => io.observe(el));
-  </script>
+<!-- ════ CONTACT ════ -->
+<section id="contact" class="s3">
+  <div class="slabel r">Mari Terhubung</div>
+  <h2 class="stitle r d1">Siap <span>Berkolaborasi</span></h2>
+  <div class="contact-wrap r d2">
+    <div class="cg">
+      <div class="cl">
+        <h3>Hubungi Saya</h3>
+        <p>Terbuka untuk posisi <strong>K3/HSE Officer, Safety Analyst</strong>, atau peran <strong>IT/Sistem Informasi</strong>. Setiap pesan akan direspons maksimal 24 jam.</p>
+        <div class="clinks">
+          <a href="https://wa.me/6285232816898" target="_blank" class="clink">
+            <div class="clink-ic g"><svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+            <div><div class="clink-lbl">WhatsApp</div><div class="clink-val">+62 852 3281 6898</div></div>
+          </a>
+          <a href="mailto:arilalex09@gmail.com" class="clink">
+            <div class="clink-ic o"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></div>
+            <div><div class="clink-lbl">Email</div><div class="clink-val">arilalex09@gmail.com</div></div>
+          </a>
+          <div class="clink">
+            <div class="clink-ic b"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="clink-lbl">Lokasi</div><div class="clink-val">Makassar, Sulawesi Selatan</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cr">
+        <div class="cform">
+          <div class="fg">
+            <label class="fl">Nama Lengkap</label>
+            <input type="text" class="fi" id="fn" placeholder="Nama Anda"/>
+          </div>
+          <div class="fg">
+            <label class="fl">Email / No. WhatsApp</label>
+            <input type="text" class="fi" id="fc" placeholder="email@perusahaan.com atau nomor WA"/>
+          </div>
+          <div class="fg">
+            <label class="fl">Pesan</label>
+            <textarea class="fta" id="fm" placeholder="Halo Aril, saya ingin berdiskusi tentang..."></textarea>
+          </div>
+          <button class="fbtn" onclick="sendWA()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Kirim via WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="fb">Aril <span>Alex</span></div>
+    <div class="fc" style="margin-top:.3rem">IT Graduate &middot; Ahli K3 Umum &middot; Makassar 2025</div>
+  </div>
+  <div class="fls">
+    <a href="mailto:arilalex09@gmail.com">Email</a>
+    <a href="https://wa.me/6285232816898" target="_blank">WhatsApp</a>
+    <a href="#hero">Ke Atas ↑</a>
+  </div>
+  <div class="fc">&copy; 2025 Aril Alex. All rights reserved.</div>
+</footer>
+
+<script>
+// ── cursor ──
+const cd=document.getElementById('cDot'),cr=document.getElementById('cRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){
+  cd.style.left=mx+'px';cd.style.top=my+'px';
+  rx+=(mx-rx)*.15;ry+=(my-ry)*.15;
+  cr.style.left=rx+'px';cr.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.k3c,.pcard,.ccard,.skcard,.acard,.hstat').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// ── nav scroll ──
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>70),{passive:true});
+
+// ── active nav ──
+const secs=['hero','about','education','experience','k3','projects','certifications','skills','contact'];
+const nlinks=document.querySelectorAll('.nl a');
+window.addEventListener('scroll',()=>{
+  let cur='hero';
+  secs.forEach(id=>{const el=document.getElementById(id);if(el&&scrollY>=el.offsetTop-160)cur=id;});
+  nlinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+// ── mobile menu ──
+const ham=document.getElementById('ham'),mob=document.getElementById('mobD');
+ham.addEventListener('click',()=>{mob.classList.toggle('open');ham.classList.toggle('x')});
+function cm(){mob.classList.remove('open');ham.classList.remove('x')}
+
+// ── scroll reveal ──
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});
+document.querySelectorAll('.r,.rl,.rr').forEach(el=>io.observe(el));
+
+// ── contact form → WA ──
+function sendWA(){
+  const n=document.getElementById('fn').value;
+  const c=document.getElementById('fc').value;
+  const m=document.getElementById('fm').value;
+  const t=encodeURIComponent(`Halo Aril,\n\nSaya *${n||'(nama)'}*\nKontak: ${c||'-'}\n\n${m||'(tidak ada pesan)'}`);
+  window.open(`https://wa.me/6285232816898?text=${t}`,'_blank');
+}
+</script>
 </body>
-                                                                                                                                                                                        </html>
+  </html>
